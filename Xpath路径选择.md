@@ -73,5 +73,41 @@
 > 1. 获取 `class` 为 `bold` 的标签名
 
 
-####代码演示：
+#### 代码演示：
 
+```python
+from lxml import etree
+#创建一个etree对象
+html=etree.parse('hello.html')
+#查找文档li标签下所有的a标签或者div标签：
+result=html.xpath('//li//a|//li//div')
+#print(len(result))
+#查找所有的li标签：
+result=html.xpath('//li')
+#print(len(result))
+#print(type(result))
+#print(result[0])
+#查找所有li的属性：
+result=html.xpath('//li/@class')
+#print(result)
+#获取li中所有href属性为"link1.html"的a标签
+result=html.xpath('//li//a[@href="link1.html"]')
+# print(result[0].text)
+#获取li标签下的所有span标签
+result=html.xpath("//li//span")
+'''for i in result:
+    print(i.text)'''
+# 获取所有li标签下的class属性，不包括li的class属性
+result=html.xpath('//li//*/@class')
+# print(result)
+# 获取最后一个li标签下的a标签的href
+result=html.xpath('//li[last()]/a/@href')
+# print(result)
+# 获取倒数第二个li标签中a标签的内容
+result=html.xpath("//li[last()-1]/a")
+# print(result[0].text)
+# 获取class为bold的所有标签名,循环输出所有标签名
+result=html.xpath('//*[@class="bold"]')
+for i in result:
+    print(i.tag)
+```
